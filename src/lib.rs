@@ -448,13 +448,13 @@ where
                 let time_out = if let Some(time_out) = self.timeout {
                     time_out
                 } else {
-                    Duration::from_millis(50)
+                    Duration::from_secs(300)
                 };
 
                 let mut target =
                     timeout(
                         time_out,
-                        async move { TcpStream::connect(&sock_addr[..]).await },
+                        async move { TcpStream::connect(&sock_addr[0]).await },
                     )
                     .await
                     .map_err(|_| MerinoError::Socks(ResponseCode::AddrTypeNotSupported))
